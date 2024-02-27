@@ -4,6 +4,8 @@ import ReactDom from'react-dom';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import './App.scss'
+import './assets/main.css'
+
 const appElement = document.getElementById('app');
 const root = createRoot(appElement);
 
