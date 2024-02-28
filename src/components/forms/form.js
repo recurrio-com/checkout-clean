@@ -5,17 +5,19 @@ import InputEmail from "./input_email";
 import InputPhone from "./input_phone";
 import InputTerms from "./input_terms";
 import InputName from "./input_name";
-
+import { settingsStore } from "../../context/settings_store";
 
 export default function Form() {
+  const conf = settingsStore((state) => state.config);
+
   const [segmentation, setSegmentation] = useState("b2c");
   return (
     <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-      <InputName />
-      {segmentation == "b2b" ? <InputCompany /> : null}
-      <InputEmail />
-      <InputPhone />
-      <InputTerms />
+      {conf.form.name ? <InputName /> : null}
+      {conf.segmentation == "b2b" ? <InputCompany /> : null}
+      {conf.form.email ? <InputEmail /> : null}
+      {conf.form.phone ? <InputPhone /> : null}
+      {conf.form.terms.length > 0 ? <InputTerms />:null}
     </div>
   );
 }

@@ -8,6 +8,7 @@
   "tokenize": false,
   "subscription": false,
   "merchantName": "Balla butiken AB",
+  "segmentation": "b2c",
   "form": {
     "name": true,
     "email": true,

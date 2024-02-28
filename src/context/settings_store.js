@@ -7,7 +7,13 @@ export const settingsStore  = create((set, get) => ({
     token: '',
     config: {
         init: false,
-        currency: 'n/a'
+        currency: 'n/a',
+        form: {
+            name: false,
+            email: false,
+            phone: false,
+            terms: []
+        }
     },
     loadSettingsAsync: async () => {
         let hej = 1
