@@ -12,6 +12,7 @@ export default function App() {
     const loadSettings = settingsStore((state) => state.loadSettingsAsync)
     useEffect(() => {
         const config = loadSettings()
+        
     }, [])
 
   return (

@@ -5,7 +5,10 @@ export const settingsStore  = create((set, get) => ({
     currency: 'USD',
     apiUri: 'public/data.json',
     token: '',
-    config: null,
+    config: {
+        init: false,
+        currency: 'n/a'
+    },
     loadSettingsAsync: async () => {
         let hej = 1
         const response = await fetch(get().apiUri)
@@ -14,7 +17,6 @@ export const settingsStore  = create((set, get) => ({
             throw new Error(`${response.status} ${response.statusText}`);
           }
         const data = await response.json()
-        console.log(data)
 
         set({
             config: data,

@@ -1,6 +1,33 @@
 {
-    "amount": "10",
-    "currency": "sek",
-    "paymentMethod": "swish"
-
+  "init": true,
+  "apiToken": "123",
+  "totalAmount": "10",
+  "vatAmount": "2.50",
+  "currency": "sek",
+  "paymentMethod": "swish",
+  "tokenize": false,
+  "subscription": false,
+  "merchantName": "Balla butiken AB",
+  "form": {
+    "name": true,
+    "email": true,
+    "phone": true,
+    "terms": [
+      {
+        "title": "Terms and conditions",
+        "link": "https://recurrio.com/terms-conditions",
+        "checked": false,
+        "required": true
+      }
+    ]
+  },
+  "availablePaymentMethods": [
+    {
+      "name": "Swish",
+      "id": "swish",
+      "icon": "https://images.ctfassets.net/zrqoyh8r449h/7taM7P2vHzWdGUE5VIm4ou/ba9ff9d11fe33dac9a170cf7d8e2468c/Swish_Logo_Primary_Dark-BG_P3.png?w=600",
+      "description": "Betala med Swish"
+    }
+  ],
+  "lineItems": []
 }

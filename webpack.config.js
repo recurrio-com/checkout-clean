@@ -10,6 +10,8 @@ module.exports = {
   devServer: {
     port: 3010,
     static: "./",
+    hot: true,
+    
   },
   module: {
     rules: [
