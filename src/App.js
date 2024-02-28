@@ -1,17 +1,22 @@
-import React, {useContext, useEffect} from 'react';
+import React, { useContext, useEffect } from "react";
 import Main from "./components/main";
-import myData from './data.json';
-import {MainStore} from './context/main_context'
+import {settingsStore} from "./context/settings_store"
 
-export default function App() {    
+import myData from "./data.json";
+
+const urlParams = new URLSearchParams(window.location.search);
+
+export default function App() {
+    let token = urlParams.get('token')
+    settingsStore.setState({token: token})
+    const loadSettings = settingsStore((state) => state.loadSettingsAsync)
     useEffect(() => {
-    }, []);
+        const config = loadSettings()
+    }, [])
 
-    return (
-        <React.StrictMode>
-            <MainStore>
-                <Main state={null} />
-            </MainStore>
-        </React.StrictMode>
-    );
+  return (
+    <React.StrictMode>
+      <Main state={null} />
+    </React.StrictMode>
+  );
 }

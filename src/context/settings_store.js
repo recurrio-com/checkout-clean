@@ -1,7 +1,25 @@
 import {create} from "zustand"
+import json from "../data.json"
 
-export const settingsStore  = create((set) => ({
+export const settingsStore  = create((set, get) => ({
     currency: 'USD',
+    apiUri: 'public/data.json',
+    token: '',
+    config: null,
+    loadSettingsAsync: async () => {
+        let hej = 1
+        const response = await fetch(get().apiUri)
+        if (!response.ok) {
+            alert(response.statusText)
+            throw new Error(`${response.status} ${response.statusText}`);
+          }
+        const data = await response.json()
+        console.log(data)
+
+        set({
+            config: data,
+        })  
+    },
     setCurrency: (newCurrency) => {
         console.log(newCurrency)
         set((state) => ( {currency: newCurrency}))

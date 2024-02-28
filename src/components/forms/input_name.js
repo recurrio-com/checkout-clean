@@ -1,8 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import { Switch } from "@headlessui/react";
+import {settingsStore} from "../../context/settings_store";
 
 export default function InputName() {
+  const setCurrency = settingsStore((state) => state.setCurrency)
+
   const [terms, setTerms] = useState("");
 
   return (
@@ -16,6 +19,7 @@ export default function InputName() {
         </label>
         <div className="mt-2.5">
           <input
+            onChange={(e) => setCurrency(e.target.value)}
             type="text"
             name="first-name"
             id="first-name"

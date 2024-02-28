@@ -1,9 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
+import {settingsStore} from "../../context/settings_store"
 
 export default function Header() {
+  const curr =  settingsStore((state) => state.currency)
+
   const [totalAmount, setTotalAmount] = useState(0);
   const [vatAmount, setVatAmount] = useState(0);
-  const [currency, setCurrency] = useState("SEK");
+  const [currency, setCurrency] = useState(curr);
 
   useEffect(() => {
   }, []);

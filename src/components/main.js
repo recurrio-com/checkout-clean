@@ -4,20 +4,12 @@ import Header from "./header/header";
 import InputSubmit from "./forms/input_submit";
 import Form from "./forms/form";
 import Footer from "./footer/footer";
-import { MainContext } from "../context/main_context";
 
-export const Main = ({ foo }) => {
-  const [myState, setMyState] = useState(state);
-  const [state, dispatch] = useContext(MainContext)
+export const Main = () => {
   useEffect(() => {
 
   }, []);
-  const lol = () => {
-    dispatch({
-      type: 'SET_ACTIVE_TAB',
-      payload: 'swish'
-  })
-  }
+
   return (
     <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8 roboto-regular">
       <Header></Header>
