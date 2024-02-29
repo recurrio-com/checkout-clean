@@ -4,7 +4,7 @@ import json from "../data.json";
 export const settingsStore = create((set, get) => ({
   currency: "USD",
   apiUri: "http://api.localrecurrio.com:3000/v1/merchant/1/payments",
-  settingsUri: "public/data.json",
+  settingsUri: "http://pay.localrecurrio.com:3000/v1/5dc3cbc5-b2c9-40b4-837b-9536d6e58b0b/settings",
   token: "",
   formData: {},
   formResponse: {},
