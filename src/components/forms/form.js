@@ -17,7 +17,7 @@ export default function Form() {
       {conf.segmentation == "b2b" ? <InputCompany /> : null}
       {conf.form.email ? <InputEmail /> : null}
       {conf.form.phone ? <InputPhone /> : null}
-      {conf.form.terms.length > 0 ? <InputTerms />:null}
+      <InputTerms />
     </div>
   );
 }

@@ -15,6 +15,7 @@
     "phone": true,
     "terms": [
       {
+        "id": "general",
         "title": "Terms and conditions",
         "link": "https://recurrio.com/terms-conditions",
         "checked": false,
