@@ -3,7 +3,7 @@ import json from "../data.json";
 
 export const settingsStore = create((set, get) => ({
   currency: "USD",
-  apiUri: "http://pay.localrecurrio.com:3000/v1/payment",
+  apiUri: "http://api.localrecurrio.com:3000/v1/merchant/1/payments",
   settingsUri: "public/data.json",
   token: "",
   formData: {},
@@ -42,9 +42,11 @@ export const settingsStore = create((set, get) => ({
     let postBody = {
         ...get().formData,
       token: get().token,
+      secure_token: get().config.secureToken,
+      invoice_id: get().invoiceId,
     };
 
-    const response = await fetch(get().apiUri, {
+    const response = await fetch(get().config.paymentUri, {
       method: "POST",
       mode: "cors",
       headers: {
@@ -68,7 +70,6 @@ export const settingsStore = create((set, get) => ({
     set((state) => ({ currency: newCurrency }));
   },
   updateForm: (obj) => {
-
     set({
       formData: {
         ...get().formData,

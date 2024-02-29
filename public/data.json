@@ -1,7 +1,9 @@
 {
   "init": true,
-  "paymentUrl": "http://pay.localrecurrio.com/v1/payments",
-  "apiToken": "123",
+  "merchantId": "1",
+  "invoiceId": "2",
+  "paymentUri": "http://api.localrecurrio.com:3000/v1/merchant/1/payments",
+  "secureToken": "123abc",
   "totalAmount": "10",
   "vatAmount": "2.50",
   "currency": "sek",
