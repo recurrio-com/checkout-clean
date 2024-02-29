@@ -10,6 +10,8 @@ function classNames(...classes) {
 
 export default function InputTerms() {
   const conf = settingsStore((state) => state.config);
+  const state = settingsStore();
+
   const [terms, setTerms] = useState([]);
 
   const [term, setTerm] = useState({ title: "default", content: "" });
@@ -31,8 +33,7 @@ export default function InputTerms() {
 
   const setChecked = (id, checked) => {
     agreed[id] = checked;
-
-    console.log(agreed);
+    state.updateForm({ name: "terms_" + id, value: checked });
     setAgreed(agreed);
   };
 
