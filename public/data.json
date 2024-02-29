@@ -1,5 +1,6 @@
 {
   "init": true,
+  "paymentUrl": "http://pay.localrecurrio.com/v1/payments",
   "apiToken": "123",
   "totalAmount": "10",
   "vatAmount": "2.50",

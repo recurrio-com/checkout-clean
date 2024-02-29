@@ -37,7 +37,7 @@ export default function InputTerms() {
   };
 
   let elements = terms.map(function (term) {
-    return <Checkbox term={term} onChange={setChecked} />;
+    return <Checkbox term={term} onChange={setChecked} key={term.id} />;
   });
 
   return <>{elements}</>;
