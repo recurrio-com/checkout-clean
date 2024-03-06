@@ -4,7 +4,7 @@ import json from "../data.json";
 export const settingsStore = create((set, get) => ({
   currency: "USD",
   apiUri: "http://api.localrecurrio.com:3000/v1/merchant/1/payments",
-  settingsUri: "http://pay.localrecurrio.com:3000/v1/5dc3cbc5-b2c9-40b4-837b-9536d6e58b0b/settings",
+  settingsUri: "http://pay.localrecurrio.com:3000/v1/",
   token: "",
   formData: {},
   formResponse: {},
@@ -18,9 +18,10 @@ export const settingsStore = create((set, get) => ({
       terms: [],
     },
   },
-  loadSettingsAsync: async () => {
+  loadSettingsAsync: async (token) => {
     let hej = 1;
-    const response = await fetch(get().settingsUri);
+    let uri = `${get().settingsUri}${token}/settings`;
+    const response = await fetch(uri);
     if (!response.ok) {
       alert(response.statusText);
       throw new Error(`${response.status} ${response.statusText}`);

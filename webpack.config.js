@@ -11,7 +11,6 @@ module.exports = {
     port: 3010,
     static: "./",
     hot: true,
-    
   },
   module: {
     rules: [
