@@ -16,7 +16,20 @@ export const Main = () => {
     e.preventDefault();
     state.updateForm({ name: "payment_method", value: "swish" });
 
-    const response = submitPayment();
+    const response = submitPayment().then((response) => {
+      console.log(response);
+      if(response.ok){
+        if(response.payment.status == "approved"){
+          alert("Payment was successful");
+          return
+        }
+
+        if(response.payment.next_action == "wait_for_status_update") {
+          //poll payment for succes/fail
+        }
+        
+      }
+    });
   };
 
   return (
