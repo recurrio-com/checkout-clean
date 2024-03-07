@@ -3,7 +3,7 @@ import json from "../data.json";
 
 export const settingsStore = create((set, get) => ({
   currency: "USD",
-  apiUri: "http://api.localrecurrio.com:3000/v1/merchant/1/payments",
+  apiUri: "http://api.localrecurrio.com:3000/v1/merchants/",
   settingsUri: "http://pay.localrecurrio.com:3000/v1/",
   token: "",
   formData: {},
@@ -65,13 +65,38 @@ export const settingsStore = create((set, get) => ({
     set({
       formResponse: responseBody,
     });
-    switch (responseBody.next_action) {
-      case 'wait_for_status_update':
-        get().pollPaymentStatusAsync();
-      break;
-      default:
-        console.log('not sure how to handle response instructions')
-    }
+
+    return {ok: true, payment: responseBody}
+  },
+  startPaymentPoll: async () => {
+    const pollUri = `${get().settingsUri}/${get().token}/status`;
+
+    const intervalID = setInterval(async () => {
+      const response = await fetch(pollUri);
+      if (!response.ok) {
+        alert(response.statusText);
+        throw new Error(`${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+  
+      if(data.status == "approved"){
+        clearInterval(intervalID);
+        alert("Payment was successful");
+        clearInterval(intervalID)
+        window.location.href = data.redirect_url
+        return
+      }
+      
+      switch (data.next_action) {
+        case 'wait_for_status_update':
+          // continue poll
+        break;
+        default:
+          console.log('not sure how to handle response instructions')
+      }
+    }, 5000);
+
+
   },
   pollPaymengittStatusAsync: async () => {
 

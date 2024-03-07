@@ -8,7 +8,9 @@ import { settingsStore } from "../context/settings_store";
 
 export const Main = () => {
   const submitPayment = settingsStore((state) => state.submitPaymentAsync);
+  const poll = settingsStore((state) => state.startPaymentPoll);
   const state = settingsStore();
+
 
   useEffect(() => {}, []);
 
@@ -16,7 +18,21 @@ export const Main = () => {
     e.preventDefault();
     state.updateForm({ name: "payment_method", value: "swish" });
 
-    const response = submitPayment();
+    const response = submitPayment().then((response, poll) => {
+      console.log(response);
+      if(response.ok){
+        if(response.payment.status == "approved"){
+          alert("Payment was successful");
+          return
+        }
+
+        if(response.payment.next_action == "wait_for_status_update") {
+          //poll payment for succes/fail
+          state.startPaymentPoll()
+        }
+        
+      }
+    });
   };
 
   return (
