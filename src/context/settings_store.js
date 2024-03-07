@@ -65,6 +65,16 @@ export const settingsStore = create((set, get) => ({
     set({
       formResponse: responseBody,
     });
+    switch (responseBody.next_action) {
+      case 'wait_for_status_update':
+        get().pollPaymentStatusAsync();
+      break;
+      default:
+        console.log('not sure how to handle response instructions')
+    }
+  },
+  pollPaymengittStatusAsync: async () => {
+
   },
   setCurrency: (newCurrency) => {
     console.log(newCurrency);
