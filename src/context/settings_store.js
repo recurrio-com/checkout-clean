@@ -82,14 +82,15 @@ export const settingsStore = create((set, get) => ({
       if(data.status == "approved"){
         clearInterval(intervalID);
         alert("Payment was successful");
-        clearInterval(intervalID)
         window.location.href = data.redirect_url
         return
       }
-      
       switch (data.next_action) {
         case 'wait_for_status_update':
           // continue poll
+        break;
+        case 'render_image':
+          get().renderImage(data.image_data)
         break;
         default:
           console.log('not sure how to handle response instructions')
@@ -97,6 +98,12 @@ export const settingsStore = create((set, get) => ({
     }, 5000);
 
 
+  },
+  renderImage: (encodedImage) => {
+    //base64 encoded image
+    const image = document.getElementById("qrImg")
+    image.classList.remove("invisible")
+    image.src = 'data:image/png;base64,' + encodedImage
   },
   pollPaymengittStatusAsync: async () => {
 

@@ -18,6 +18,7 @@ export default function Form() {
       {conf.form.email ? <InputEmail /> : null}
       {conf.form.phone ? <InputPhone /> : null}
       <InputTerms />
+      <img className="invisible" src="#" id="qrImg" />
     </div>
   );
 }

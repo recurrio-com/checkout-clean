@@ -30,7 +30,11 @@ export const Main = () => {
           //poll payment for succes/fail
           state.startPaymentPoll()
         }
-        
+
+        if(response.payment.next_action == "render_image") {
+          state.startPaymentPoll()
+        }
+
       }
     });
   };
