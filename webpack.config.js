@@ -11,6 +11,7 @@ module.exports = {
     port: 3010,
     static: "./",
     hot: true,
+    allowedHosts: 'all',
   },
   module: {
     rules: [
@@ -19,6 +20,13 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
+        },
+      },
+      {
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "ts-loader",
         },
       },
       {

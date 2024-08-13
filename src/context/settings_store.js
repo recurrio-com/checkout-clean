@@ -21,6 +21,9 @@ export const settingsStore = create((set, get) => ({
   loadSettingsAsync: async (token) => {
     let hej = 1;
     let uri = `${get().settingsUri}${token}/settings`;
+    if(document.location.href.includes('localhost')) {
+      uri = `${document.location.href}public/data.json`
+    }
     const response = await fetch(uri);
     if (!response.ok) {
       alert(response.statusText);

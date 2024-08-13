@@ -1,45 +1,37 @@
 {
   "init": true,
-  "merchantId": "1",
-  "invoiceId": "2",
-  "paymentUri": "http://api.localrecurrio.com:3000/v1/merchant/1/payments",
-  "secureToken": "123abc",
-  "totalAmount": "10",
-  "vatAmount": "2.50",
-  "currency": "sek",
+  "test": true,
+  "merchantId": 2,
+  "invoiceId": 65,
+  "paymentUri": "http://pay.localrecurrio.com:3000/v1/21887f67-9e95-4a22-b7cc-258a6bcebb75/pay",
+  "secureToken": "8e44fce25bd52e08e43d12e74272eb3e59afcf63c10cfa6c7f59b1f8805b41af",
+  "totalAmount": "100.00",
+  "vatAmount": "0.00",
+  "currency": "SEK",
   "paymentMethod": "swish",
   "tokenize": false,
   "subscription": false,
-  "merchantName": "Balla butiken AB",
+  "merchantName": "testmerchant",
   "segmentation": "b2c",
   "form": {
-    "name": true,
-    "email": true,
-    "phone": true,
+    "name": false,
+    "email": false,
+    "phone": false,
     "terms": [
       {
         "id": "general",
+        "link": "https://recurrio.com/terms-conditions",
         "title": "Terms and conditions",
-        "link": "https://recurrio.com/terms-conditions",
-        "checked": false,
-        "required": true
-      },
-      {
-        "id": "age",
-        "title": "I am 18 or above",
-        "link": "https://recurrio.com/terms-conditions",
         "checked": false,
         "required": true
       }
-
-
     ]
   },
   "availablePaymentMethods": [
     {
-      "name": "Swish",
       "id": "swish",
       "icon": "https://images.ctfassets.net/zrqoyh8r449h/7taM7P2vHzWdGUE5VIm4ou/ba9ff9d11fe33dac9a170cf7d8e2468c/Swish_Logo_Primary_Dark-BG_P3.png?w=600",
+      "name": "Swish",
       "description": "Betala med Swish"
     }
   ],
