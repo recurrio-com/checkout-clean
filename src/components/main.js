@@ -6,7 +6,7 @@ import Form from "./forms/form";
 import Footer from "./footer/footer";
 import { settingsStore } from "../context/settings_store";
 
-export const Main = () => {
+export const Main = (props) => {
   const submitPayment = settingsStore((state) => state.submitPaymentAsync);
   const poll = settingsStore((state) => state.startPaymentPoll);
   const state = settingsStore();
