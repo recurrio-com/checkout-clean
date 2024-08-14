@@ -21,7 +21,7 @@ useEffect(() => {
   }, [])
   return (
     <React.StrictMode>
-     { localToken && <Main state={null} /> }
+     { localToken && <Main /> }
     </React.StrictMode>
   );
 }

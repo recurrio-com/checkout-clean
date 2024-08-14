@@ -1,21 +1,28 @@
 import React, { useState, useContext, useEffect } from "react";
 import {settingsStore} from "../../context/settings_store"
 
-export default function Header() {
-  const conf =  settingsStore((state) => state.config)
+interface Configuration {
+  init: boolean;
+  currency: string;
+  totalAmount: number;
+  vatAmount: number;
+  paymentMethod: string;
+}
 
-  const [config, setConfig] = useState(conf);
-  const [totalAmount, setTotalAmount] = useState(0);
-  const [vatAmount, setVatAmount] = useState(0);
-  const [currency, setCurrency] = useState('');
-  const [paymentMethod, setPaymentMethod] = useState('');
+export default function Header() {
+  const conf =  settingsStore((state) => state.config) as unknown as Configuration;
+
+  const [totalAmount, setTotalAmount] = useState<number>(0);
+  const [vatAmount, setVatAmount] = useState<number>(0);
+  const [currency, setCurrency] = useState<string>('');
+  const [paymentMethod, setPaymentMethod] = useState<string>('');
 
   useEffect(() => {
     if (conf.init) {
       setCurrency(conf.currency);
       setTotalAmount(conf.totalAmount);
       setVatAmount(conf.vatAmount);
-      setPaymentMethod(conf.paymentMethod)
+      setPaymentMethod(conf.paymentMethod);
     }
   }, [conf]);
   return (

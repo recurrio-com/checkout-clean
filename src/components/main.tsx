@@ -6,32 +6,30 @@ import Form from "./forms/form";
 import Footer from "./footer/footer";
 import { settingsStore } from "../context/settings_store";
 
-export const Main = (props) => {
-  const submitPayment = settingsStore((state) => state.submitPaymentAsync);
-  const poll = settingsStore((state) => state.startPaymentPoll);
+export const Main = () => {
+  const submitPayment = settingsStore((state) => state.submitPaymentAsync)
   const state = settingsStore();
 
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: React.FormEvent<any>) => {
     e.preventDefault();
     state.updateForm({ name: "payment_method", value: "swish" });
 
-    const response = submitPayment().then((response, poll) => {
-      console.log(response);
-      if(response.ok){
-        if(response.payment.status == "approved"){
+    const response = submitPayment().then((response) => {
+      if (response.ok) {
+        if (response.payment.status === "approved") {
           alert("Payment was successful");
           return
         }
 
-        if(response.payment.next_action == "wait_for_status_update") {
+        if (response.payment.next_action === "wait_for_status_update") {
           //poll payment for succes/fail
           state.startPaymentPoll()
         }
 
-        if(response.payment.next_action == "render_image") {
+        if (response.payment.next_action === "render_image") {
           state.startPaymentPoll()
         }
 

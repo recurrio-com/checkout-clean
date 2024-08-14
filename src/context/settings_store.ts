@@ -14,7 +14,7 @@ interface SettingsStore {
   loadSettingsAsync: (token: string) => void
   pollPaymentStatusAsync: () => void
   startPaymentPoll: () => void
-  submitPaymentAsync: () => void
+  submitPaymentAsync: () => Promise<any>
 }
 
 export const settingsStore = create<SettingsStore>((set, get) => ({
