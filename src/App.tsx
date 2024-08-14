@@ -6,13 +6,13 @@ const urlParams = new URLSearchParams(window.location.search);
 
 export default function App() {
   const [localToken, setLocalToken] = useState<string|null>(null)
-  const loadSettings = settingsStore((state) => state.loadSetttingsAsync)
+  const loadSettings = settingsStore((state) => state.loadSettingsAsync)
 
 useEffect(() => {
-      let token = urlParams.get('token') as string | null
+      let token = urlParams.get('token') as string
       if (!token) {
           const lastSegment = window.location.href.split("/").pop()
-          token = lastSegment as string | null
+          token = lastSegment as string
       }
       setLocalToken(token)
       settingsStore.setState({token: token})

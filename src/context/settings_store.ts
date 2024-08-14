@@ -1,7 +1,24 @@
 import { create } from "zustand";
-import json from "../data.json";
 
-export const settingsStore = create((set, get) => ({
+interface SettingsStore {
+  currency: string
+  settingsUri: string
+  config: Record<string, unknown>
+  formData: Record<string, unknown>
+  token: string
+  formResponse: Record<string, unknown>
+  renderImage: (encodedImage: string) => void
+  setCurrency: (newCurrency: string) => void
+  updateForm: (obj: Record<string, any>) => void
+  invoiceId: number
+  loadSettingsAsync: (token: string) => void
+  pollPaymentStatusAsync: () => void
+  startPaymentPoll: () => void
+  submitPaymentAsync: () => void
+}
+
+export const settingsStore = create<SettingsStore>((set, get) => ({
+  invoiceId: 0,
   currency: "USD",
   apiUri: "http://api.localrecurrio.com:3000/v1/merchants/",
   settingsUri: "http://pay.localrecurrio.com:3000/v1/",
@@ -18,8 +35,7 @@ export const settingsStore = create((set, get) => ({
       terms: [],
     },
   },
-  loadSettingsAsync: async (token) => {
-    let hej = 1;
+  loadSettingsAsync: async (token: string) => {
     let uri = `${get().settingsUri}${token}/settings`;
     if(document.location.href.includes('localhost')) {
       uri = `${document.location.href}public/data.json`
@@ -50,7 +66,7 @@ export const settingsStore = create((set, get) => ({
       invoice_id: get().invoiceId,
     };
 
-    const response = await fetch(get().config.paymentUri, {
+    const response = await fetch(get().config.paymentUri as string, {
       method: "POST",
       mode: "cors",
       headers: {
@@ -102,16 +118,16 @@ export const settingsStore = create((set, get) => ({
 
 
   },
-  renderImage: (encodedImage) => {
+  renderImage: (encodedImage: string) => {
     //base64 encoded image
-    const image = document.getElementById("qrImg")
+    const image = document.getElementById("qrImg") as HTMLImageElement
     image.classList.remove("invisible")
     image.src = 'data:image/png;base64,' + encodedImage
   },
-  pollPaymengittStatusAsync: async () => {
+  pollPaymentStatusAsync: async () => {
 
   },
-  setCurrency: (newCurrency) => {
+  setCurrency: (newCurrency: string) => {
     console.log(newCurrency);
     set((state) => ({ currency: newCurrency }));
   },
