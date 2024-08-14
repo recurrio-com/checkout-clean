@@ -1,14 +1,7 @@
 import React from "react";
-import { useState } from "react";
-import { settingsStore } from "../../context/settings_store";
+import { FormInputProps } from "../../types/formInputProps";
 
-export default function InputEmail() {
-  const [email, setEmail] = useState("");
-  const state = settingsStore();
-
-  const onInputChange = (e) => {
-    state.updateForm({ name: e.target.name, value: e.target.value });
-  };
+export default function InputEmail({ onChange }: FormInputProps) {
 
   return (
     <div className="sm:col-span-2">
@@ -20,7 +13,7 @@ export default function InputEmail() {
       </label>
       <div className="mt-2.5">
         <input
-          onChange={onInputChange}
+          onChange={onChange}
           type="email"
           name="email"
           id="email"

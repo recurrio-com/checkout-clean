@@ -1,9 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import {settingsStore} from "../../context/settings_store"
+import { Configuration } from "../../types/configuration";
 
 export default function InputSubmit() {
-  const conf =  settingsStore((state) => state.config)
+  const conf =  settingsStore((state) => state.config) as unknown as Configuration;
   const [totalAmount, setTotalAmount] = useState(0);
   const [currency, setCurrency] = useState('');
   useEffect(() => {

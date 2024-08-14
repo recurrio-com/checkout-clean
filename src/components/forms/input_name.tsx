@@ -1,20 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { Switch } from "@headlessui/react";
-import {settingsStore} from "../../context/settings_store";
+import { settingsStore } from "../../context/settings_store";
+import { FormInputProps } from "../../types/formInputProps";
 
-export default function InputName() {
-  const setCurrency = settingsStore((state) => state.setCurrency)
-  const state = settingsStore();
-
-  const [terms, setTerms] = useState("");
-  const [fName, setFname] = useState("");
-  const [lName, setLname] = useState("");
-
-  const onNameChange = (e) => {
-    state.updateForm({ name: e.target.name, value: e.target.value });
-  }
-
+export default function InputName({ onChange }: FormInputProps) {
   return (
     <>
       <div>
@@ -26,7 +16,7 @@ export default function InputName() {
         </label>
         <div className="mt-2.5">
           <input
-            onChange={onNameChange}
+            onChange={onChange}
             type="text"
             name="first_name"
             id="first-name"
@@ -44,7 +34,7 @@ export default function InputName() {
         </label>
         <div className="mt-2.5">
           <input
-            onChange={onNameChange}
+            onChange={onChange}
             type="text"
             name="last_name"
             id="last-name"

@@ -1,13 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import { settingsStore } from "../../context/settings_store";
+import { FormInputProps } from "../../types/formInputProps";
 
-export default function InputPhone() {
-  const [phone, setPhone] = useState("");
-  const state = settingsStore();
-  const onInputChange = (e) => {
-    state.updateForm({ name: e.target.name, value: e.target.value });
-  };
+export default function InputPhone({onChange}: FormInputProps) {
 
   return (
     <div className="sm:col-span-2">
@@ -38,7 +34,7 @@ export default function InputPhone() {
   */}{" "}
         </div>
         <input
-          onChange={onInputChange}
+          onChange={onChange}
           type="tel"
           name="phone_number"
           id="phone-number"

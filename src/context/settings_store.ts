@@ -1,9 +1,10 @@
 import { create } from "zustand";
+import { Configuration } from "../types/configuration";
 
 interface SettingsStore {
   currency: string
   settingsUri: string
-  config: Record<string, unknown>
+  config: Configuration
   formData: Record<string, unknown>
   token: string
   formResponse: Record<string, unknown>
@@ -26,8 +27,15 @@ export const settingsStore = create<SettingsStore>((set, get) => ({
   formData: {},
   formResponse: {},
   config: {
+    secureToken: "",
+    paymentUri: "",
+    segmentation: "b2c",
+    totalAmount: 0,
+    vatAmount: 0,
+    paymentMethod: "unknown",
     init: false,
     currency: "n/a",
+    terms: [],
     form: {
       name: false,
       email: false,

@@ -1,13 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import {settingsStore} from "../../context/settings_store"
+import { Configuration } from "../../types/configuration";
 
-interface Configuration {
-  init: boolean;
-  currency: string;
-  totalAmount: number;
-  vatAmount: number;
-  paymentMethod: string;
-}
 
 export default function Header() {
   const conf =  settingsStore((state) => state.config) as unknown as Configuration;
