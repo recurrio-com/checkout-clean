@@ -3,7 +3,7 @@ import {settingsStore} from "../../context/settings_store"
 import { Configuration } from "../../types/configuration";
 
 
-export default function Header() {
+export default function Header({isLoading}: {isLoading: boolean}) {
   const conf =  settingsStore((state) => state.config) as unknown as Configuration;
 
   const [totalAmount, setTotalAmount] = useState<number>(0);
@@ -19,6 +19,12 @@ export default function Header() {
       setPaymentMethod(conf.paymentMethod);
     }
   }, [conf]);
+
+  if(isLoading) {
+    return <></>
+  }
+  
+
   return (
     <div className="mx-auto max-w-2xl text-center">
       <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">

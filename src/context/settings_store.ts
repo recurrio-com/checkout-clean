@@ -16,9 +16,13 @@ interface SettingsStore {
   pollPaymentStatusAsync: () => void
   startPaymentPoll: () => void
   submitPaymentAsync: () => Promise<any>
+  isLoading: boolean
+  setLoading: (load: boolean) => void
+  runHttpError: (response: Response) => void
 }
 
 export const settingsStore = create<SettingsStore>((set, get) => ({
+  isLoading: false,
   invoiceId: 0,
   currency: "USD",
   apiUri: "http://api.localrecurrio.com:3000/v1/merchants/",
@@ -43,21 +47,34 @@ export const settingsStore = create<SettingsStore>((set, get) => ({
       terms: [],
     },
   },
+  setLoading: (load: boolean) => {
+    set({ isLoading: load });
+  },
+  runHttpError: (response: Response) => {
+    if (!response.ok) {
+      get().setLoading(false)
+      console.log(response.statusText);
+      throw new Error(`${response.status} ${response.statusText}`);
+    }
+
+  },
   loadSettingsAsync: async (token: string) => {
+    get().setLoading(true)
+    await new Promise(r => setTimeout(r, 2000));
     let uri = `${get().settingsUri}${token}/settings`;
     if(document.location.href.includes('localhost')) {
       uri = `${document.location.href}public/data.json`
     }
     const response = await fetch(uri);
     if (!response.ok) {
-      alert(response.statusText);
-      throw new Error(`${response.status} ${response.statusText}`);
+      return get().runHttpError(response)
     }
     const data = await response.json();
 
     set({
       config: data,
     });
+    get().setLoading(false)
   },
   submitPaymentAsync: async () => {
     // validate formdata
@@ -67,6 +84,7 @@ export const settingsStore = create<SettingsStore>((set, get) => ({
     // if qr code, do it
     // if error message, show it
     // if iframe, show it
+    get().setLoading(true)
     let postBody = {
         ...get().formData,
       token: get().token,
@@ -83,16 +101,13 @@ export const settingsStore = create<SettingsStore>((set, get) => ({
       body: JSON.stringify(postBody),
     });
     if (!response.ok) {
-      alert(response.statusText);
-//      throw new Error(`${response.status} ${response.statusText}`);
+      get().runHttpError(response)
     }
     const responseBody = await response.json();
-    console.log(responseBody);
-
     set({
       formResponse: responseBody,
     });
-
+    get().setLoading(false)
     return {ok: true, payment: responseBody}
   },
   startPaymentPoll: async () => {

@@ -1,14 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Switch } from "@headlessui/react";
-import { settingsStore } from "../../context/settings_store";
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Checkbox({ term, onChange }) {
-  const [agreed, setAgreed] = useState(false);
+export default function Checkbox({ term, onChange }: { term: any, onChange: any }) {
+  const [agreed, setAgreed] = useState<boolean>(false);
 
   const handleChange = () => {
     setAgreed(!agreed);

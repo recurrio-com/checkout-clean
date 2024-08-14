@@ -5,9 +5,12 @@ import InputSubmit from "./forms/input_submit";
 import Form from "./forms/form";
 import Footer from "./footer/footer";
 import { settingsStore } from "../context/settings_store";
+import Loader from "./loader";
 
 export const Main = () => {
   const submitPayment = settingsStore((state) => state.submitPaymentAsync)
+  const isLoading = settingsStore((state) => state.isLoading)
+
   const state = settingsStore();
 
 
@@ -39,10 +42,11 @@ export const Main = () => {
 
   return (
     <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8 roboto-regular">
-      <Header></Header>
+      <Header isLoading={isLoading}></Header>
       <form onSubmit={onSubmit} className="mx-auto mt-16 max-w-xl sm:mt-20">
-        <Form />
-        <InputSubmit />
+        <Form isLoading={isLoading} />
+        <Loader isLoading={isLoading} />
+        <InputSubmit isLoading={isLoading} /> 
         <Footer />
       </form>
     </div>

@@ -8,14 +8,17 @@ import InputName from "./input_name";
 import { settingsStore } from "../../context/settings_store";
 import { Configuration } from "../../types/configuration";
 
-export default function Form() {
+export default function Form({isLoading}: {isLoading: boolean}) {
   const conf = settingsStore((state) => state.config) as unknown as Configuration;
   const state = settingsStore();
+  const [segmentation, setSegmentation] = useState("b2c");
+  if(isLoading) {
+    return <></>
+  }
+  
   const onFormChange = (e: React.ChangeEvent<any>) => {
     state.updateForm({ name: e.target.name, value: e.target.value });
   }
-
-  const [segmentation, setSegmentation] = useState("b2c");
   return (
     <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
       {conf.form.name ? <InputName onChange={onFormChange} /> : null}
