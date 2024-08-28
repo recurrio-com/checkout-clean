@@ -1,8 +1,7 @@
 import React from "react";
-import { useState } from "react";
+import { FormInputProps } from "../../types/formInputProps";
 
-export default function InputEmail() {
-  const [email, setEmail] = useState("");
+export default function InputEmail({ onChange }: FormInputProps) {
 
   return (
     <div className="sm:col-span-2">
@@ -14,6 +13,7 @@ export default function InputEmail() {
       </label>
       <div className="mt-2.5">
         <input
+          onChange={onChange}
           type="email"
           name="email"
           id="email"

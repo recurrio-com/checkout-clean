@@ -1,26 +1,31 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Switch } from "@headlessui/react";
-function classNames(...classes) {
+
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function InputTerms() {
-  const [terms, setTerms] = useState("");
-  const [agreed, setAgreed] = useState(false);
+export default function Checkbox({ term, onChange }: { term: any, onChange: any }) {
+  const [agreed, setAgreed] = useState<boolean>(false);
+
+  const handleChange = () => {
+    setAgreed(!agreed);
+    onChange(term.id, !agreed);
+  }
 
   return (
-    <Switch.Group as="div" className="flex gap-x-4 sm:col-span-2">
+    <Switch.Group as="div" className="flex gap-x-4 sm:col-span-2" key={term.id}>
       <div className="flex h-6 items-center">
         <Switch
           checked={agreed}
-          onChange={setAgreed}
+          onChange={handleChange}
           className={classNames(
             agreed ? "bg-indigo-600" : "bg-gray-200",
             "flex w-8 flex-none cursor-pointer rounded-full p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           )}
         >
-          <span className="sr-only">Agree to policies</span>
+          <span className="sr-only">{term.title}</span>
           <span
             aria-hidden="true"
             className={classNames(
@@ -30,13 +35,13 @@ export default function InputTerms() {
           />
         </Switch>
       </div>
-      <Switch.Label className="text-sm leading-6 text-gray-600">
-        By selecting this, you agree to our{" "}
-        <a href="#" className="font-semibold text-indigo-600">
-          terms & conditions
+        <a
+          href={term.link}
+          className="font-semibold text-indigo-600"
+          target="_blank"
+        >
+          {term.title}
         </a>
-        .
-      </Switch.Label>
     </Switch.Group>
   );
 }
